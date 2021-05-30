@@ -41,13 +41,20 @@ function drawDojo(size, dif) {
     var boardsize = parseInt(document.getElementById(size).value)
     var tempDojo = []
 
-    difficulty = document.getElementById(dif).innerHTML.value
-    if (difficulty = "easy") { ninjacount = Math.floor(boardsize / 2) }
-    else if (difficulty = "medium") { ninjacount = boardsize }
-    else if (difficulty = "hard") {
-        ninjacount = Math.floor(boardsize * 1.5)
+    difficulty = document.getElementById(dif).value
+    console.log(difficulty)
+    if (difficulty == "easy") {
+        console.log("picked easy")
+        ninjacount = (boardsize * boardsize / 20)
     }
-    else { ninjacount = Math.floor(boardsize * 4) }
+    else if (difficulty == "medium") {
+        console.log("picked medium")
+        ninjacount = (boardsize * boardsize / 10)
+    }
+    else if (difficulty == "hard") {
+        ninjacount = (boardsize * boardsize / 5)
+    }
+    else { ninjacount = (boardsize * boardsize / 2) }
 
     for (var i = 0; i < boardsize; i++) {
         tempDojo[i] = []
