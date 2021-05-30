@@ -13,6 +13,7 @@ var dojoDiv = document.querySelector("#the-dojo");
 var emptynum = 0
 var emptyclick = 0
 
+
 // Creates the rows of buttons for this game
 function render(theDojo) {
     var result = "";
@@ -39,6 +40,7 @@ function drawDojo(size, dif) {
     var dupeCheckArr = []
     var boardsize = parseInt(document.getElementById(size).value)
     var tempDojo = []
+
     difficulty = document.getElementById(dif).innerHTML.value
     if (difficulty = "easy") { ninjacount = Math.floor(boardsize / 2) }
     else if (difficulty = "medium") { ninjacount = boardsize }
@@ -82,10 +84,13 @@ function drawDojo(size, dif) {
     console.log(emptynum)
 
 }
+function restart() {
 
-// TODO - Make this function tell us how many ninjas are hiding 
-//        under the adjacent (all sides and corners) squares.
-//        Use i and j as the indexes to check theDojo.
+    emptynum = 0
+    emptyclick = 0
+    drawDojo("size", "difficulty")
+}
+
 function howMany(e, i, j, element) {
     if (e.which == 3) {
         flag(element)
@@ -118,7 +123,9 @@ function howMany(e, i, j, element) {
     }
     if (theDojo[i][j] == 1) {
         element.innerHTML = "<img src = 'ninja.jpg'>"
-        alert("you lose")
+        var restartloss = window.confirm("you lose :(   restart?")
+        if (restartloss == true) { restart() }
+
 
     }
     console.log({ i, j });
@@ -133,21 +140,14 @@ function flag(element) {
 }
 function win() {
     if (emptyclick == emptynum) {
-        alert("you win!!!")
+        var restartwin = window.confirm("you win!!! Play again?")
+        if (restartwin == true) { restart() }
     }
 
 }
-// BONUS CHALLENGES
-// 1. draw the number onto the button instead of alerting it
-// 2. at the start randomly place 10 ninjas into theDojo with at most 1 on each spot
-// 3. if you click on a ninja you must restart the game 
-//    dojoDiv.innerHTML = `<button onclick="location.reload()">restart</button>`;
-
-// start the game
-// message to greet a user of the game
-var style = "color:cyan;font-size:1.5rem;font-weight:bold;";
-console.log("%c" + "IF YOU ARE A DOJO STUDENT...", style);
-console.log("%c" + "GOOD LUCK THIS IS A CHALLENGE!", style);
+// var style = "color:cyan;font-size:1.5rem;font-weight:bold;";
+// console.log("%c" + "IF YOU ARE A DOJO STUDENT...", style);
+// console.log("%c" + "GOOD LUCK THIS IS A CHALLENGE!", style);
 // shows the dojo for debugging purposes
 
 // adds the rows of buttons into <div id="the-dojo"></div>
