@@ -24,31 +24,23 @@ function render(theDojo) {
     }
     return result;
 }
-
-function click(e, i, j, element) {
-    console.log("somethings happening")
-    if (e.which == 0) {
-        console.log(i + j + element)
-        howMany(i, j, element)
-    }
-    if (e.which == 2) { console.log("right click finally works") }
-}
-
 function drawDojo(size, dif) {
     // console.log(document.getElementById(size).value)
+    emptynum = 0
+    emptyclick = 0
     var ninjacount = 0
     var dupeCheckArr = []
     var boardsize = parseInt(document.getElementById(size).value)
     var tempDojo = []
 
     difficulty = document.getElementById(dif).value
-    console.log(difficulty)
+    // console.log(difficulty)
     if (difficulty == "easy") {
-        console.log("picked easy")
+        // console.log("picked easy")
         ninjacount = (boardsize * boardsize / 20)
     }
     else if (difficulty == "medium") {
-        console.log("picked medium")
+        // console.log("picked medium")
         ninjacount = (boardsize * boardsize / 10)
     }
     else if (difficulty == "hard") {
@@ -80,7 +72,7 @@ function drawDojo(size, dif) {
     }
     document.getElementById("the-dojo").style.width = boardsize * 32 + "px"
     dojoDiv.innerHTML = render(tempDojo)
-    console.table(tempDojo);
+    // console.table(tempDojo);
     theDojo = tempDojo
 
     for (var i = 0; i < boardsize; i++) {
@@ -88,15 +80,10 @@ function drawDojo(size, dif) {
             if (tempDojo[i][j] == 0) { emptynum++ }
         }
     }
-    console.log(emptynum)
+    // console.log(emptynum)
 
 }
-function restart() {
 
-    emptynum = 0
-    emptyclick = 0
-    drawDojo("size", "difficulty")
-}
 
 function howMany(e, i, j, element) {
     if (e.which == 3) {
@@ -107,17 +94,17 @@ function howMany(e, i, j, element) {
 
     var ninjaNum = 0
     emptyclick++
-    console.log("emptyclick" + emptyclick)
+    // console.log("emptyclick" + emptyclick)
     for (var k = -1; k <= 1; k++) {
         var m = i + k
-        console.log(m)
+        // console.log(m)
         if (m == -1 || m == theDojo.length) { ninjaNum = ninjaNum }
         else {
             for (var l = -1; l <= 1; l++) {
                 var n = j + l
                 if (theDojo[m][n] != undefined) {
                     if (m != i || n != j) {
-                        console.log(m); console.log(n)
+                        // console.log(m); console.log(n)
                         ninjaNum = ninjaNum + theDojo[m][n];
                     }
                     else { ninjaNum = ninjaNum }
@@ -131,11 +118,11 @@ function howMany(e, i, j, element) {
     if (theDojo[i][j] == 1) {
         element.innerHTML = "<img src = 'ninja.jpg'>"
         var restartloss = window.confirm("you lose :(   restart?")
-        if (restartloss == true) { restart() }
+        if (restartloss == true) { drawDojo("size", "difficulty") }
 
 
     }
-    console.log({ i, j });
+    // console.log({ i, j });
     element.innerHTML = ninjaNum
     element.classList.add("clickeddown");
     element.onmousedown = ""
@@ -148,7 +135,7 @@ function flag(element) {
 function win() {
     if (emptyclick == emptynum) {
         var restartwin = window.confirm("you win!!! Play again?")
-        if (restartwin == true) { restart() }
+        if (restartwin == true) { drawDojo("size", "difficulty") }
     }
 
 }
